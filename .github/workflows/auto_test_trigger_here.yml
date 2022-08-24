@@ -18,13 +18,6 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  decideApplicationVersion:
-    name: Decide to version of application under test.
-    runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.app_version == '' }}
-    steps:
-      - run: |
-          echo "Decided App Version: ${{ github.event.inputs.app_version }}"
   # This workflow contains a single job called "greet"
   automated_tests:
     # The type of runner that the job will run on
