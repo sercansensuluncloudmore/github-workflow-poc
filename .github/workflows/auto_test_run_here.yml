@@ -47,7 +47,7 @@ jobs:
   # This workflow contains a single job called "greet"
   runtests:
     needs: [findApplicationVersion]
-    name: Run Tests for ${{ jobs.findApplicationVersion.version.app_version }} version
+    name: Run Tests for version
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -55,4 +55,4 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: |
-        echo "Environment is ${{ github.event.inputs.app_version }} || App Version is ${{ github.event.inputs.environment }}"
+        echo "Environment is ${{ jobs.findApplicationVersion.version.app_version }} || App Version is ${{ github.event.inputs.environment }}"
