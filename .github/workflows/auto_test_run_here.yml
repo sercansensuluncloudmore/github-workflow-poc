@@ -32,6 +32,8 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.app_version == '' }}
     steps:
+      - uses: Cloudmore-com/get-version-from-tag@master
+        id: version
       - run: |
           echo "Decided App Version: ${{ github.event.inputs.app_version }}"
   # This workflow contains a single job called "greet"
