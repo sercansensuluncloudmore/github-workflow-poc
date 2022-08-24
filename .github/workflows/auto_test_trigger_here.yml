@@ -26,12 +26,21 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Runs a single command using the runners shell
-    - name: Trigger Auto Tests
+    - name: Trigger Auto Tests with version
       uses: benc-uk/workflow-dispatch@v1
       with:
           workflow: Auto Test Run
           token: ${{ secrets.WORKFLOW_TOKEN }}
           inputs: |
             {"app_version": "3.0.0",
+            "environment": "dev" }
+          ref: ${{ github.ref }}
+    - name: Trigger Auto Tests without version
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+          workflow: Auto Test Run
+          token: ${{ secrets.WORKFLOW_TOKEN }}
+          inputs: |
+            {"app_version": "",
             "environment": "dev" }
           ref: ${{ github.ref }}

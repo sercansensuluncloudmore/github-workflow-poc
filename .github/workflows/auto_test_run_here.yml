@@ -20,10 +20,10 @@ on:
           - hotfix
           - prod
       app_version:
-        description: 'version of the application under test, should be passed by other workflows.'
+        description: 'Please do not enter manually! Version of the application under test.'
         required: false
         type: string
-        default: ""    
+        default: ""
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
