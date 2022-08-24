@@ -36,5 +36,5 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: Send greeting
-      run: echo "Environment is ${{ github.event.inputs.app_version }}"
-      run: echo "App Version is ${{ github.event.inputs.environment }}"
+      run: |
+        echo "Environment is ${{ github.event.inputs.app_version }} || App Version is ${{ github.event.inputs.environment }}"
