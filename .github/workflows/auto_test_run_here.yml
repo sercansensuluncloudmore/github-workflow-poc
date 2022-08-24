@@ -30,6 +30,8 @@ jobs:
   findApplicationVersion:
     name: Find version of application.
     runs-on: ubuntu-latest
+    outputs: 
+      app_version: ${{steps.version.outputs.version}}
     steps:
       - uses: actions/github-script@v5
         name: Set version
@@ -39,15 +41,15 @@ jobs:
             const version = '${{ github.event.inputs.app_version }}'
             if(version != ''){
               console.log('No need to find version, it is already given.')
-              console.log(`::set-output name=app_version::${version}`)
+              console.log(`::set-output name=version::${version}`)
             }else{
               console.log('Need to find version.')
-              console.log(`::set-output name=app_version::1.0.0`)
+              console.log(`::set-output name=version::1.0.0`)
             }
   # This workflow contains a single job called "greet"
   runtests:
     needs: [findApplicationVersion]
-    name: Run Tests for version
+    name: Run Tests for ${{needs.findApplicationVersion.outputs.app_version}} version
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -55,4 +57,4 @@ jobs:
     # Runs a single command using the runners shell
     - name: Send greeting
       run: |
-        echo "Environment is ${{ jobs.findApplicationVersion.version.app_version }} || App Version is ${{ github.event.inputs.environment }}"
+        echo "Environment is ${{ github.event.inputs.environment }} || App Version is ${{needs.findApplicationVersion.outputs.app_version}}"
