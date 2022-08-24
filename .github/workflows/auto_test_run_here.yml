@@ -40,7 +40,7 @@ jobs:
             if(version != ''){
               console.log('No need to find version, it is already given.')
             }else{
-              ${{ github.event.inputs.app_version }} = '1.0.0'
+              console.log('Need to find version.')
             }
   # This workflow contains a single job called "greet"
   runtests:
