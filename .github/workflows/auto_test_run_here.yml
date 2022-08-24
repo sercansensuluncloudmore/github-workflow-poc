@@ -31,8 +31,17 @@ jobs:
     name: Find version of application.
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo " App version is : ${{ github.event.inputs.app_version }}"
+      - uses: actions/github-script@v5
+        name: Set version
+        id: version
+        with:
+          script: |
+            const version = '${{ github.event.inputs.app_version }}'
+            if(version != ''){
+              console.log('No need to find version, it is already given.')
+            }else{
+              ${{ github.event.inputs.app_version }} = '1.0.0'
+            }
   # This workflow contains a single job called "greet"
   runtests:
     needs: [findApplicationVersion]
