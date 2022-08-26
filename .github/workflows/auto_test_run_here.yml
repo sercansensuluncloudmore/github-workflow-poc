@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - uses: actions/find_app_version
+      - uses: sercansensuluncloudmore/github-workflow-custom-action-poc
         id: app_version
       - uses: jannekem/run-python-script-action@v1.2
         id: found_version
