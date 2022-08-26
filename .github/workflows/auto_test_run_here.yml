@@ -44,7 +44,6 @@ jobs:
               print('No need to decide version.')
             else:
               version = "1.0.0"
-            print(version)
             set_output('version', version)
     # steps:
     #   - uses: actions/github-script@v5
