@@ -33,7 +33,7 @@ jobs:
     outputs: 
       app_version: ${{steps.version.outputs.version}}
     steps:
-      - uses: actions/checkout@v2
+     - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - uses: jannekem/run-python-script-action@v1
         with:
@@ -60,7 +60,7 @@ jobs:
     #         }else{
     #           console.log('Need to find version.')
     #           console.log(`::set-output name=version::1.0.0`)
-            }
+            # }
   # This workflow contains a single job called "greet"
   runtests:
     needs: [findApplicationVersion]
