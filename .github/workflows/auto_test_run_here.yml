@@ -41,10 +41,10 @@ jobs:
             version = '${{ github.event.inputs.app_version }}'
             if (version != ''):
               print("No need to find version, it is already given.")
-              set_output("app_version", version)
+              print("::set-output name=version::${version}")
             else:
               print("Need to find version.")
-              set_output("app_version", "1.0.0")
+              console.log("::set-output name=version::1.0.0")
     # steps:
     #   - uses: actions/github-script@v5
     #     name: Set version
