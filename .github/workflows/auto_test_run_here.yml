@@ -39,16 +39,19 @@ jobs:
         id: found_version
         with:
           script: |
+            from random import seed
+            from random import randint
+            seed(1)
             version = '${{ github.event.inputs.app_version }}'
             if (version != ''):
               print('No need to decide version.')
             else:
               print('Decide application version.')
-              version = "1.0.0"
+              version = f"{randint(0, 10)}.{randint(0, 10)}.{randint(0, 10)}"
             set_output('version', version)
   # This workflow contains a single job called "greet"
   runtests:
-    needs: [findApplicationVersion]
+    needs: [findApplicationVersion] 
     name: Run Tests for ${{needs.findApplicationVersion.outputs.app_version}} version
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
