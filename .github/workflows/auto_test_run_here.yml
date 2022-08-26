@@ -30,13 +30,13 @@ jobs:
   findApplicationVersion:
     name: Find version of application.
     runs-on: ubuntu-latest
-    # outputs: 
-    #   app_version: ${{steps.version.outputs.version}}
+    outputs: 
+      app_version: ${{steps.version.outputs.version}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - uses: jannekem/run-python-script-action@v1.2
-        id: app_version
+        id: version
         with:
           script: |
             version = '${{ github.event.inputs.app_version }}'
