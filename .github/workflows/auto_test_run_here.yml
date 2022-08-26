@@ -39,7 +39,7 @@ jobs:
         with:
           script: |
             version = '${{ github.event.inputs.app_version }}'
-            if (version){
+            if (version != ''){
               print('No need to find version, it is already given.')
               print('::set-output name=version::${version}')
             }
