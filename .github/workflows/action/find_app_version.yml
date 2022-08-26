@@ -1,0 +1,22 @@
+# This is a basic workflow that is manually triggered
+
+name: Find App Version
+
+outputs:
+  version:
+    description: Current Version of Application
+    value: ${{steps.found_version.outputs.version}}
+
+runs:
+  using: composite
+  steps:
+    - uses: jannekem/run-python-script-action@v1.2
+      name: Find Version of Application
+      id: found_version
+      with:
+        script: |  
+          from random import seed
+          from random import randint
+          seed(1)
+          version = f"{randint(0, 10)}.{randint(0, 10)}.{randint(0, 10)}"
+          set_output('version', version)

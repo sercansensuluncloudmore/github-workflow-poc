@@ -35,6 +35,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
+      - uses: actions/find_app_version
+        id: app_version
       - uses: jannekem/run-python-script-action@v1.2
         id: found_version
         with:
@@ -47,7 +49,7 @@ jobs:
               print('No need to decide version.')
             else:
               print('Decide application version.')
-              version = f"{randint(0, 10)}.{randint(0, 10)}.{randint(0, 10)}"
+              version = "${{steps.app_version.outputs.version}}"
             set_output('version', version)
   # This workflow contains a single job called "greet"
   runtests:
