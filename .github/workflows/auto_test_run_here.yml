@@ -31,43 +31,30 @@ jobs:
     name: Find version of application.
     runs-on: ubuntu-latest
     outputs: 
-      app_version: ${{steps.version.outputs.version}}
+      app_version: ${{steps.found_version.outputs.version}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - uses: jannekem/run-python-script-action@v1.2
-        id: version
+        id: found_version
         with:
           script: |
             version = '${{ github.event.inputs.app_version }}'
             if (version != ''):
               print('No need to decide version.')
             else:
+              print('Decide application version.')
               version = "1.0.0"
             set_output('version', version)
-    # steps:
-    #   - uses: actions/github-script@v5
-    #     name: Set version
-    #     id: version
-    #     with:
-    #       script: |
-    #         const version = '${{ github.event.inputs.app_version }}'
-    #         if(version != ''){
-    #           console.log('No need to find version, it is already given.')
-    #           console.log(`::set-output name=version::${version}`)
-    #         }else{
-    #           console.log('Need to find version.')
-    #           console.log(`::set-output name=version::1.0.0`)
-            # }
   # This workflow contains a single job called "greet"
   runtests:
     needs: [findApplicationVersion]
-    name: Run Tests for ${{needs.findApplicationVersion.steps.app_version.outputs.version}} ${{needs.findApplicationVersion.outputs.app_version}} version
+    name: Run Tests for ${{needs.findApplicationVersion.outputs.app_version}} version
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Runs a single command using the runners shell
-    - name: Send greeting
+    - name: Run Tests
       run: |
         echo "Environment is ${{ github.event.inputs.environment }} || App Version is ${{needs.findApplicationVersion.outputs.app_version}}"
