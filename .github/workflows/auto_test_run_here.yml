@@ -36,15 +36,14 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
       - uses: jannekem/run-python-script-action@v1.2
+        id: app_version
         with:
           script: |
             version = '${{ github.event.inputs.app_version }}'
             if (version != ''):
-              print("No need to find version, it is already given.")
-              print("::set-output name=version::${version}")
+              print(version)
             else:
-              print("Need to find version.")
-              print("::set-output name=version::1.0.0")
+              print("1.0.0")
     # steps:
     #   - uses: actions/github-script@v5
     #     name: Set version
@@ -62,7 +61,7 @@ jobs:
   # This workflow contains a single job called "greet"
   runtests:
     needs: [findApplicationVersion]
-    name: Run Tests for ${{needs.findApplicationVersion.outputs.app_version}} version
+    name: Run Tests for ${{needs.findApplicationVersion.steps.app_version}} ${{needs.findApplicationVersion.outputs.app_version}} version
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
