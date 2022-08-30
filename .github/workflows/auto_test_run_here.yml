@@ -46,7 +46,7 @@ jobs:
           script: |
             version = '${{ github.event.inputs.app_version }}'
             is_backward_compatibility = "${{github.event.inputs.backwards_compatibility}}"
-            if (is_backward_compatibility = 'true'):
+            if (is_backward_compatibility == 'true'):
               print('It is backward compatibility.')
               version = "0.0.0"
             else:
