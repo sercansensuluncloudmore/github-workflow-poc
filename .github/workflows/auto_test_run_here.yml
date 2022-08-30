@@ -24,6 +24,9 @@ on:
         required: false
         type: string
         default: ""
+      backwards_compatibility:
+        description: Backwards compatibility. Deploy previous App release with new liquibase patches
+        default: "false"  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -42,11 +45,14 @@ jobs:
         with:
           script: |
             version = '${{ github.event.inputs.app_version }}'
-            if (version != ''):
-              print('No need to decide version.')
+            is_backward_compatibility = ${{github.event.inputs.backwards_compatibility}}
+            if (is_backward_compatibility):
+              print('It is backward compatibility.')
+              version = "0.0.0"
             else:
-              print('Decide application version.')
-              version = "${{steps.app_version.outputs.version}}"
+              print('It is NOT compatibility. Parse application version.')
+              print(f"split ${{steps.app_version.outputs.version}}")
+              version = "${{steps.app_version.outputs.version}}".split('release-')[1]
             set_output('version', version)
   # This workflow contains a single job called "greet"
   runtests:
