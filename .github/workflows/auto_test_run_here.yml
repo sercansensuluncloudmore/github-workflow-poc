@@ -52,7 +52,7 @@ jobs:
             else:
               print('It is NOT compatibility. Parse application version.')
               print(f"split ${{steps.app_version.outputs.version}}")
-              version = "${{steps.app_version.outputs.version}}".split('release-')[1]
+              version = "${{steps.app_version.outputs.version}}".split('-')[1]
             set_output('version', version)
   # This workflow contains a single job called "greet"
   runtests:
